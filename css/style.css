@@ -432,7 +432,7 @@ body::after {
 }
 
 /* ================= Animations ================= */
-.fade-in {
+html.js .fade-in {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.8s ease, transform 0.8s ease;
@@ -443,7 +443,7 @@ body::after {
     transform: translateY(0);
 }
 
-.slide-up {
+html.js .slide-up {
     opacity: 0;
     transform: translateY(50px);
     transition: opacity 1s ease, transform 1s ease;
@@ -491,3 +491,7 @@ body::after {
         display: none;
     }
 }
+
+/* Cinturon de seguridad: nada queda invisible aunque falle el JS de animaciones */
+html.js .fade-in, html.js .slide-up { animation: gs-reveal 0s 2.5s forwards; }
+@keyframes gs-reveal { to { opacity: 1; transform: none; } }
