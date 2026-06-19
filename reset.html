@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restablecer contraseña — GymSpeak</title>
+  <style>
+    body { font-family: -apple-system, system-ui, sans-serif; max-width: 420px; margin: 0 auto; padding: 48px 24px; line-height: 1.6; color: #222; }
+    h1 { font-size: 1.5em; }
+    label { display: block; font-size: 0.9em; margin: 18px 0 6px; font-weight: 600; }
+    input[type=password] { width: 100%; box-sizing: border-box; padding: 12px 14px; font-size: 16px; border: 1px solid #ccc; border-radius: 10px; background: #fff; color: #222; }
+    button { width: 100%; margin-top: 20px; padding: 14px; font-size: 16px; font-weight: 700; color: #fff; background: #14a05a; border: none; border-radius: 12px; cursor: pointer; }
+    button:disabled { opacity: 0.6; cursor: default; }
+    .msg { margin-top: 18px; padding: 12px 14px; border-radius: 10px; font-size: 0.95em; }
+    .msg.error { background: #fdecea; color: #b3261e; }
+    .msg.ok { background: #e7f6ee; color: #0f7a44; }
+    .hint { font-size: 0.85em; color: #666; }
+    .hidden { display: none; }
+    @media (prefers-color-scheme: dark) {
+      body { background: #111; color: #ddd; }
+      input[type=password] { background: #1c1c1e; color: #eee; border-color: #444; }
+      .hint { color: #999; }
+      .msg.error { background: #3a1f1d; color: #ff8a80; }
+      .msg.ok { background: #14301f; color: #7ee2a8; }
+    }
+  </style>
+</head>
+<body>
+  <h1>💪 Restablecer contraseña</h1>
+
+  <!-- Estado: cargando / enlace inválido -->
+  <div id="loading" class="hint">Comprobando el enlace…</div>
+  <div id="invalid" class="msg error hidden">
+    Este enlace no es válido o ha caducado. Vuelve a la app y pide uno nuevo desde “¿Olvidaste tu contraseña?”.
+  </div>
+
+  <!-- Formulario de nueva contraseña -->
+  <form id="form" class="hidden" autocomplete="off">
+    <label for="pw">Nueva contraseña</label>
+    <input id="pw" type="password" placeholder="Mínimo 8 caracteres" autocomplete="new-password" minlength="8" required>
+    <label for="pw2">Repetir contraseña</label>
+    <input id="pw2" type="password" placeholder="Repite la contraseña" autocomplete="new-password" minlength="8" required>
+    <button id="submit" type="submit">Guardar contraseña</button>
+    <div id="formError" class="msg error hidden"></div>
+  </form>
+
+  <!-- Éxito -->
+  <div id="success" class="msg ok hidden">
+    ✅ Tu contraseña se ha cambiado. Vuelve a la app GymSpeak e inicia sesión con la nueva contraseña.
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    (function () {
+      var SUPABASE_URL = 'https://datuqilcshjvapujdool.supabase.co';
+      var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRhdHVxaWxjc2hqdmFwdWpkb29sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNDgxMzIsImV4cCI6MjA5NDYyNDEzMn0.q6AZirRR1UsKKdkxvnmlmPDVQx09T-FckLl03aRh5Gw';
+
+      var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+        auth: { detectSessionInUrl: false, persistSession: false, autoRefreshToken: false },
+      });
+
+      var $ = function (id) { return document.getElementById(id); };
+      function show(id) { $(id).classList.remove('hidden'); }
+      function hide(id) { $(id).classList.add('hidden'); }
+
+      // Leer los tokens del fragmento (#access_token=...&type=recovery)
+      var hash = window.location.hash.charAt(0) === '#' ? window.location.hash.slice(1) : window.location.hash;
+      var p = new URLSearchParams(hash);
+      var accessToken = p.get('access_token');
+      var refreshToken = p.get('refresh_token');
+      var type = p.get('type');
+      var errorDesc = p.get('error_description');
+
+      // Quitar el token de la barra de direcciones / historial.
+      try { history.replaceState(null, '', window.location.pathname); } catch (e) {}
+
+      function fail() { hide('loading'); show('invalid'); }
+
+      if (errorDesc || !accessToken || !refreshToken || type !== 'recovery') {
+        fail();
+        return;
+      }
+
+      sb.auth.setSession({ access_token: accessToken, refresh_token: refreshToken })
+        .then(function (res) {
+          if (res.error) { fail(); return; }
+          hide('loading');
+          show('form');
+        })
+        .catch(fail);
+
+      $('form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        hide('formError');
+        var pw = $('pw').value;
+        var pw2 = $('pw2').value;
+        if (pw.length < 8) {
+          $('formError').textContent = 'La contraseña debe tener al menos 8 caracteres.';
+          show('formError');
+          return;
+        }
+        if (pw !== pw2) {
+          $('formError').textContent = 'Las contraseñas no coinciden.';
+          show('formError');
+          return;
+        }
+        $('submit').disabled = true;
+        $('submit').textContent = 'Guardando…';
+        sb.auth.updateUser({ password: pw })
+          .then(function (res) {
+            if (res.error) {
+              $('formError').textContent = res.error.message || 'No se pudo cambiar la contraseña. El enlace puede haber caducado.';
+              show('formError');
+              $('submit').disabled = false;
+              $('submit').textContent = 'Guardar contraseña';
+              return;
+            }
+            hide('form');
+            show('success');
+          })
+          .catch(function () {
+            $('formError').textContent = 'Error de red. Inténtalo de nuevo.';
+            show('formError');
+            $('submit').disabled = false;
+            $('submit').textContent = 'Guardar contraseña';
+          });
+      });
+    })();
+  </script>
+</body>
+</html>
