@@ -4,49 +4,80 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Restablecer contraseña — GymSpeak</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
   <style>
-    body { font-family: -apple-system, system-ui, sans-serif; max-width: 420px; margin: 0 auto; padding: 48px 24px; line-height: 1.6; color: #222; }
-    h1 { font-size: 1.5em; }
-    label { display: block; font-size: 0.9em; margin: 18px 0 6px; font-weight: 600; }
-    input[type=password] { width: 100%; box-sizing: border-box; padding: 12px 14px; font-size: 16px; border: 1px solid #ccc; border-radius: 10px; background: #fff; color: #222; }
-    button { width: 100%; margin-top: 20px; padding: 14px; font-size: 16px; font-weight: 700; color: #fff; background: #14a05a; border: none; border-radius: 12px; cursor: pointer; }
-    button:disabled { opacity: 0.6; cursor: default; }
-    .msg { margin-top: 18px; padding: 12px 14px; border-radius: 10px; font-size: 0.95em; }
-    .msg.error { background: #fdecea; color: #b3261e; }
-    .msg.ok { background: #e7f6ee; color: #0f7a44; }
-    .hint { font-size: 0.85em; color: #666; }
-    .hidden { display: none; }
-    @media (prefers-color-scheme: dark) {
-      body { background: #111; color: #ddd; }
-      input[type=password] { background: #1c1c1e; color: #eee; border-color: #444; }
-      .hint { color: #999; }
-      .msg.error { background: #3a1f1d; color: #ff8a80; }
-      .msg.ok { background: #14301f; color: #7ee2a8; }
+    .reset-wrap { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; }
+    .reset-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; text-decoration: none; color: var(--text-main); }
+    .reset-logo img { height: 40px; width: auto; }
+    .reset-logo span { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; }
+    .reset-card {
+      width: 100%; max-width: 420px;
+      background: var(--bg-card);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+      border-radius: 20px; padding: 32px 28px;
     }
+    .reset-card h1 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.5px; }
+    .reset-card h1 .hl {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .reset-card .sub { color: var(--text-muted); margin-top: 6px; }
+    label { display: block; font-size: 0.9rem; font-weight: 600; margin: 18px 0 6px; }
+    input[type=password] {
+      width: 100%; box-sizing: border-box; padding: 14px 16px;
+      font-family: var(--font-family); font-size: 16px; color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border);
+      border-radius: 12px; transition: border-color 0.2s ease;
+    }
+    input[type=password]:focus { outline: none; border-color: var(--accent-green); }
+    input::placeholder { color: var(--text-muted); }
+    button.btn-primary { width: 100%; margin-top: 24px; border: none; font-size: 16px; font-family: var(--font-family); }
+    button.btn-primary:disabled { opacity: 0.55; cursor: default; transform: none; box-shadow: 0 0 20px rgba(57, 255, 20, 0.3); }
+    .msg { margin-top: 18px; padding: 12px 14px; border-radius: 12px; font-size: 0.95rem; border: 1px solid; line-height: 1.5; }
+    .msg.error { background: rgba(255, 80, 80, 0.1); border-color: rgba(255, 80, 80, 0.3); color: #ff8a8a; }
+    .msg.ok { background: rgba(57, 255, 20, 0.08); border-color: rgba(57, 255, 20, 0.3); color: var(--accent-green); }
+    .hint { color: var(--text-muted); }
+    .hidden { display: none; }
+    @media (max-width: 480px) { .reset-card { padding: 26px 20px; } }
   </style>
 </head>
 <body>
-  <h1>💪 Restablecer contraseña</h1>
+  <div class="reset-wrap">
+    <a href="/" class="reset-logo">
+      <img src="assets/images/logo.png" alt="GymSpeak Logo">
+      <span>GymSpeak</span>
+    </a>
 
-  <!-- Estado: cargando / enlace inválido -->
-  <div id="loading" class="hint">Comprobando el enlace…</div>
-  <div id="invalid" class="msg error hidden">
-    Este enlace no es válido o ha caducado. Vuelve a la app y pide uno nuevo desde “¿Olvidaste tu contraseña?”.
-  </div>
+    <div class="reset-card">
+      <h1>Restablecer <span class="hl">contraseña</span></h1>
 
-  <!-- Formulario de nueva contraseña -->
-  <form id="form" class="hidden" autocomplete="off">
-    <label for="pw">Nueva contraseña</label>
-    <input id="pw" type="password" placeholder="Mínimo 8 caracteres" autocomplete="new-password" minlength="8" required>
-    <label for="pw2">Repetir contraseña</label>
-    <input id="pw2" type="password" placeholder="Repite la contraseña" autocomplete="new-password" minlength="8" required>
-    <button id="submit" type="submit">Guardar contraseña</button>
-    <div id="formError" class="msg error hidden"></div>
-  </form>
+      <!-- Estado: cargando / enlace inválido -->
+      <div id="loading" class="sub" style="margin-top:14px;">Comprobando el enlace…</div>
+      <div id="invalid" class="msg error hidden">
+        Este enlace no es válido o ha caducado. Vuelve a la app y pide uno nuevo desde “¿Olvidaste tu contraseña?”.
+      </div>
 
-  <!-- Éxito -->
-  <div id="success" class="msg ok hidden">
-    ✅ Tu contraseña se ha cambiado. Vuelve a la app GymSpeak e inicia sesión con la nueva contraseña.
+      <!-- Formulario de nueva contraseña -->
+      <form id="form" class="hidden" autocomplete="off">
+        <p class="sub">Elige tu nueva contraseña.</p>
+        <label for="pw">Nueva contraseña</label>
+        <input id="pw" type="password" placeholder="Mínimo 8 caracteres" autocomplete="new-password" minlength="8" required>
+        <label for="pw2">Repetir contraseña</label>
+        <input id="pw2" type="password" placeholder="Repite la contraseña" autocomplete="new-password" minlength="8" required>
+        <button id="submit" class="btn-primary" type="submit">Guardar contraseña</button>
+        <div id="formError" class="msg error hidden"></div>
+      </form>
+
+      <!-- Éxito -->
+      <div id="success" class="msg ok hidden">
+        ✅ Tu contraseña se ha cambiado. Vuelve a la app GymSpeak e inicia sesión con la nueva contraseña.
+      </div>
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
