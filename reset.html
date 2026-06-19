@@ -63,13 +63,15 @@
       function show(id) { $(id).classList.remove('hidden'); }
       function hide(id) { $(id).classList.add('hidden'); }
 
-      // Leer los tokens del fragmento (#access_token=...&type=recovery)
+      // Leer los tokens del fragmento (#access_token=...&type=recovery) o del
+      // query (?...): según el flujo, Supabase los entrega en uno u otro.
       var hash = window.location.hash.charAt(0) === '#' ? window.location.hash.slice(1) : window.location.hash;
       var p = new URLSearchParams(hash);
-      var accessToken = p.get('access_token');
-      var refreshToken = p.get('refresh_token');
-      var type = p.get('type');
-      var errorDesc = p.get('error_description');
+      var q = new URLSearchParams(window.location.search);
+      var accessToken = p.get('access_token') || q.get('access_token');
+      var refreshToken = p.get('refresh_token') || q.get('refresh_token');
+      var type = p.get('type') || q.get('type');
+      var errorDesc = p.get('error_description') || q.get('error_description');
 
       // Quitar el token de la barra de direcciones / historial.
       try { history.replaceState(null, '', window.location.pathname); } catch (e) {}
