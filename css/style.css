@@ -388,27 +388,46 @@ body::after {
 /* ================= Screenshots ================= */
 .screens {
     padding: 60px 0 40px;
+    overflow: hidden;
 }
 
-.screens-grid {
+.screens-marquee {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.screens-track {
     display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    padding: 12px 4px 24px;
-    scroll-snap-type: x mandatory;
+    width: max-content;
+    padding: 12px 0 24px;
+    animation: scroll-x 38s linear infinite;
 }
 
-.screens-grid img {
+.screens-marquee:hover .screens-track {
+    animation-play-state: paused;
+}
+
+.screens-track img {
     width: 230px;
-    flex: 0 0 auto;
+    height: auto;
+    margin-right: 20px;
     border-radius: 28px;
     border: 6px solid #1a1a1e;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
-    scroll-snap-align: center;
+}
+
+@keyframes scroll-x {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
 }
 
 @media (max-width: 900px) {
-    .screens-grid img { width: 190px; }
+    .screens-track img { width: 180px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .screens-track { animation: none; }
 }
 
 /* ================= Footer ================= */
