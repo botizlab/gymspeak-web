@@ -388,36 +388,30 @@ body::after {
 /* ================= Screenshots ================= */
 .screens {
     padding: 60px 0 40px;
+}
+
+.wheel-viewport {
     overflow: hidden;
-}
-
-.screens-viewport {
-    width: 100%;
-    max-width: 560px;
-    margin: 0 auto;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
     cursor: grab;
+    touch-action: pan-y;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
 }
 
-.screens-viewport::-webkit-scrollbar { display: none; }
-.screens-viewport.dragging { cursor: grabbing; }
+.wheel-viewport.dragging { cursor: grabbing; }
 
-.screens-row {
+.wheel-track {
     display: flex;
-    gap: 18px;
     width: max-content;
-    padding: 12px calc(50% - 120px) 24px;
+    padding: 12px 0 24px;
+    will-change: transform;
 }
 
-.screens-row img {
-    width: 240px;
+.wheel-track img {
+    width: 220px;
     height: auto;
+    margin-right: 22px;
     flex: 0 0 auto;
-    scroll-snap-align: center;
     border-radius: 28px;
     border: 6px solid #1a1a1e;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
@@ -427,8 +421,7 @@ body::after {
 }
 
 @media (max-width: 600px) {
-    .screens-row { padding: 12px calc(50% - 100px) 24px; }
-    .screens-row img { width: 200px; }
+    .wheel-track img { width: 180px; margin-right: 16px; }
 }
 
 /* ================= Footer ================= */

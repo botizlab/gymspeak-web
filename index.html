@@ -104,11 +104,12 @@
                 <h2>Así se <span class="highlight">ve</span></h2>
                 <p>Capturas reales de la app.</p>
             </div>
-            <div class="screens-viewport" id="screensViewport">
-                <div class="screens-row">
+            <div class="wheel-viewport" id="wheel">
+                <div class="wheel-track" id="wheelTrack">
                     <img src="assets/images/cap-grabar.jpeg" alt="Pantalla de registro por voz de GymSpeak">
                     <img src="assets/images/cap-rutinas.jpeg" alt="Pantalla de rutinas de GymSpeak">
                     <img src="assets/images/cap-historial.jpeg" alt="Pantalla de historial de GymSpeak">
+                    <img src="assets/images/cap-progreso.jpeg" alt="Pantalla de progreso de GymSpeak">
                     <img src="assets/images/cap-amigos.jpeg" alt="Pantalla de amigos y clasificación de GymSpeak">
                     <img src="assets/images/cap-perfil.jpeg" alt="Pantalla de perfil de GymSpeak">
                 </div>
@@ -177,22 +178,57 @@
     <script src="js/main.js"></script>
     <script>
       (function () {
-        var vp = document.getElementById('screensViewport');
-        if (!vp) return;
-        var down = false, startX = 0, startScroll = 0;
+        var vp = document.getElementById('wheel');
+        var track = document.getElementById('wheelTrack');
+        if (!vp || !track) return;
+
+        // Triplicar el contenido para el bucle infinito sin cortes
+        var originals = Array.prototype.slice.call(track.children);
+        for (var c = 0; c < 2; c++) {
+          originals.forEach(function (node) { track.appendChild(node.cloneNode(true)); });
+        }
+
+        var unit = 0;
+        function measure() { unit = track.scrollWidth / 3; }
+        window.addEventListener('resize', measure);
+        window.addEventListener('load', measure);
+        Array.prototype.slice.call(track.querySelectorAll('img')).forEach(function (im) {
+          if (!im.complete) im.addEventListener('load', measure);
+        });
+        measure();
+
+        var offset = 0;     // px
+        var vel = 0;        // px por frame
+        var drift = 0.35;   // giro automatico suave (hacia la izquierda)
+        var dragging = false, lastX = 0;
+
         vp.addEventListener('pointerdown', function (e) {
-          if (e.pointerType !== 'mouse') return; // táctil usa scroll nativo
-          down = true; startX = e.clientX; startScroll = vp.scrollLeft;
+          dragging = true; lastX = e.clientX; vel = 0;
           vp.classList.add('dragging');
           try { vp.setPointerCapture(e.pointerId); } catch (_) {}
         });
         vp.addEventListener('pointermove', function (e) {
-          if (!down) return;
-          vp.scrollLeft = startScroll - (e.clientX - startX);
+          if (!dragging) return;
+          var dx = e.clientX - lastX; lastX = e.clientX;
+          offset -= dx;   // sigue al dedo en ambos sentidos
+          vel = -dx;      // inercia = ultimo desplazamiento
         });
-        function end() { down = false; vp.classList.remove('dragging'); }
-        vp.addEventListener('pointerup', end);
-        vp.addEventListener('pointercancel', end);
+        function release() { if (dragging) { dragging = false; vp.classList.remove('dragging'); } }
+        vp.addEventListener('pointerup', release);
+        vp.addEventListener('pointercancel', release);
+
+        function loop() {
+          if (!dragging) {
+            offset += vel;
+            vel += (drift - vel) * 0.03;   // la inercia decae hasta el giro suave
+          }
+          if (unit > 0) {
+            var t = ((offset % unit) + unit) % unit;
+            track.style.transform = 'translate3d(' + (-t) + 'px,0,0)';
+          }
+          requestAnimationFrame(loop);
+        }
+        requestAnimationFrame(loop);
       })();
     </script>
 </body>
