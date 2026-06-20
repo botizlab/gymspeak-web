@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="500" viewBox="0 0 1024 500" xmlns="http://www.w3.org/2000/svg">
+<rect x="0" y="0" width="1024" height="500" fill="#000000"/>
+<text x="70" y="240" font-family="Arial, Helvetica, sans-serif" font-size="104" font-weight="800" fill="#ffffff" letter-spacing="-2">GymSpeak</text>
+<rect x="74" y="268" width="130" height="7" rx="3.5" fill="#34d27b"/>
+<text x="76" y="330" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700" fill="#d2d2d2">Tu asistente de gimnasio</text>
+<text x="76" y="376" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="400" fill="#8a8a8a">Habla y apunta lo que entrenas</text>
+<circle cx="820" cy="250" r="112" fill="#ffffff"/>
+<rect x="796" y="172" width="48" height="92" rx="24" fill="#000000"/>
+<path d="M772 250 a48 48 0 0 0 96 0" fill="none" stroke="#000000" stroke-width="12" stroke-linecap="round"/>
+<line x1="820" y1="298" x2="820" y2="322" stroke="#000000" stroke-width="12" stroke-linecap="round"/>
+<line x1="797" y1="322" x2="843" y2="322" stroke="#000000" stroke-width="12" stroke-linecap="round"/>
+<path d="M676 134 L684 158 L708 166 L684 174 L676 198 L668 174 L644 166 L668 158 Z" fill="#ffffff"/>
+<path d="M946 330 L951 346 L967 351 L951 356 L946 372 L941 356 L925 351 L941 346 Z" fill="#34d27b"/>
+<path d="M712 374 L716 386 L728 390 L716 394 L712 406 L708 394 L696 390 L708 386 Z" fill="#ffffff"/>
+</svg>

@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GymSpeak - Tu diario de gimnasio por voz</title>
-    <meta name="description" content="Entrena. Habla. Listo. Tu diario de gimnasio sin complicaciones impulsado por IA.">
+    <title>GymSpeak — Apunta tu gimnasio hablando</title>
+    <meta name="description" content="La app para apuntar tus entrenamientos hablando. Terminas la serie, lo dices en voz alta y queda guardado. Rutinas, progreso y amigos.">
+
+    <!-- Open Graph (previsualización al compartir el enlace) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="GymSpeak — Apunta tu gimnasio hablando">
+    <meta property="og:description" content="Terminas la serie, lo dices en voz alta y queda guardado. Sin teclear entre series.">
+    <meta property="og:url" content="https://botizlab.github.io/gymspeak-web/">
+    <meta property="og:image" content="https://botizlab.github.io/gymspeak-web/assets/images/banner.png">
+    <meta name="twitter:card" content="summary_large_image">
+
     <!-- Google Fonts: Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,13 +26,14 @@
     <nav class="navbar">
         <div class="container nav-container">
             <a href="#" class="logo-link">
-                <img src="assets/images/logo.png" alt="GymSpeak Logo" class="logo-img">
+                <img src="assets/images/logo.png" alt="Logo de GymSpeak" class="logo-img">
                 <span class="logo-text">GymSpeak</span>
             </a>
             <ul class="nav-links">
-                <li><a href="#features">Características</a></li>
+                <li><a href="#features">Qué hace</a></li>
+                <li><a href="#screenshots">Capturas</a></li>
                 <li><a href="#how-it-works">Cómo funciona</a></li>
-                <li><a href="https://expo.dev/artifacts/eas/XpJp_AsFJaK3MoLaSjbYxQWqfpWEfsgjcHf6Wb0WRJ0.apk" class="btn-outline">Acceso Beta</a></li>
+                <li><a href="https://expo.dev/artifacts/eas/XpJp_AsFJaK3MoLaSjbYxQWqfpWEfsgjcHf6Wb0WRJ0.apk" class="btn-outline">Probar la beta</a></li>
             </ul>
         </div>
     </nav>
@@ -32,16 +42,16 @@
     <header class="hero">
         <div class="container hero-container">
             <div class="hero-content fade-in">
-                <div class="badge">IA Avanzada Integrada</div>
-                <h1 class="hero-title">Entrena. Habla. <span class="highlight">Listo.</span></h1>
-                <p class="hero-subtitle">Tu diario de gimnasio sin complicaciones. Solo di lo que has hecho y nuestra IA estructurará tu rutina al instante. Olvídate de teclear entre series.</p>
+                <div class="badge">Beta abierta · Android</div>
+                <h1 class="hero-title">Apunta el gym <span class="highlight">hablando</span>.</h1>
+                <p class="hero-subtitle">Terminas una serie, lo dices en voz alta —«press banca, 4 por 10 con 80»— y queda guardado. Sin teclear entre series. Detrás no hay una gran empresa: la hace un desarrollador independiente.</p>
                 <div class="hero-buttons">
                     <a href="https://expo.dev/artifacts/eas/XpJp_AsFJaK3MoLaSjbYxQWqfpWEfsgjcHf6Wb0WRJ0.apk" class="btn-primary">Descargar para Android (beta)</a>
-                    <a href="#how-it-works" class="btn-secondary">Descubre cómo funciona</a>
+                    <a href="#screenshots" class="btn-secondary">Ver capturas</a>
                 </div>
             </div>
             <div class="hero-image slide-up">
-                <img src="assets/images/mockup.png" alt="GymSpeak App Interface Mockup" class="mockup-img">
+                <img src="assets/images/mockup.png" alt="GymSpeak en un móvil" class="mockup-img">
                 <div class="glow-effect"></div>
             </div>
         </div>
@@ -51,38 +61,54 @@
     <section id="features" class="features">
         <div class="container">
             <div class="section-header fade-in">
-                <h2>Diseñada para <span class="highlight">no interrumpir</span> tu entrenamiento</h2>
-                <p>Características pensadas para maximizar tu enfoque en el gimnasio.</p>
+                <h2>Lo justo para <span class="highlight">apuntar y seguir</span></h2>
+                <p>Sin menús eternos ni teclear entre series.</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card fade-in">
                     <div class="icon-wrapper">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
                     </div>
-                    <h3>Registro por Voz (Gemini)</h3>
-                    <p>Habla con naturalidad. "He hecho 4 series de sentadillas a 100 kilos". GymSpeak lo entiende y lo registra en tu rutina al instante.</p>
+                    <h3>Apunta hablando</h3>
+                    <p>Dilo con tus palabras: «cuatro series de sentadilla a 100». Queda apuntado al momento, sin escribir entre series.</p>
                 </div>
                 <div class="feature-card fade-in">
                     <div class="icon-wrapper">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                     </div>
-                    <h3>Motivación de Amigos</h3>
-                    <p>Envía y recibe mensajes cortos de motivación de tus amigos durante el entrenamiento. Un impulso extra cuando más lo necesitas.</p>
+                    <h3>Amigos y piques</h3>
+                    <p>Añade a tus colegas, subid de rango según vuestra fuerza y mandaos ánimos para no faltar al gym.</p>
                 </div>
                 <div class="feature-card fade-in">
                     <div class="icon-wrapper">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
                     </div>
-                    <h3>Notificaciones Duras</h3>
-                    <p>¿Te falta disciplina? Activa nuestro sistema de notificaciones agresivas para que nada te impida ir a entrenar.</p>
+                    <h3>Avisos que pican</h3>
+                    <p>¿Te estás escaqueando? Activa recordatorios que te empujan a no saltarte el día. Tú decides cuánto aprietan.</p>
                 </div>
                 <div class="feature-card fade-in">
                     <div class="icon-wrapper">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
                     </div>
-                    <h3>Modo Offline & Personalización</h3>
-                    <p>Funciona sin internet en el gimnasio. Además, elige entre múltiples temas de colores y modo oscuro absoluto.</p>
+                    <h3>Sin cobertura y a tu gusto</h3>
+                    <p>Funciona sin internet en el gimnasio. Y lo pones a tu manera: varios temas, modo oscuro y kg o lb.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section id="screenshots" class="screens">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Así se <span class="highlight">ve</span></h2>
+                <p>Capturas reales de la app.</p>
+            </div>
+            <div class="screens-grid">
+                <img src="assets/images/cap-grabar.jpeg" alt="Pantalla de registro por voz de GymSpeak" class="fade-in">
+                <img src="assets/images/cap-rutinas.jpeg" alt="Pantalla de rutinas de GymSpeak" class="fade-in">
+                <img src="assets/images/cap-historial.jpeg" alt="Pantalla de historial de GymSpeak" class="fade-in">
+                <img src="assets/images/cap-amigos.jpeg" alt="Pantalla de amigos y clasificación de GymSpeak" class="fade-in">
             </div>
         </div>
     </section>
@@ -91,23 +117,23 @@
     <section id="how-it-works" class="how-it-works">
         <div class="container">
             <div class="section-header fade-in">
-                <h2>Simplicidad en <span class="highlight">3 Pasos</span></h2>
+                <h2>Así de <span class="highlight">simple</span></h2>
             </div>
             <div class="steps-container">
                 <div class="step fade-in">
                     <div class="step-number">1</div>
-                    <h3>Toca y Habla</h3>
-                    <p>Pulsa el micrófono al terminar tu ejercicio y di qué acabas de hacer con tus propias palabras.</p>
+                    <h3>Toca y habla</h3>
+                    <p>Pulsa el micro al acabar el ejercicio y di lo que has hecho con tus palabras.</p>
                 </div>
                 <div class="step fade-in">
                     <div class="step-number">2</div>
-                    <h3>Procesado por IA</h3>
-                    <p>Nuestra inteligencia artificial transforma tu voz en datos precisos (peso, repeticiones, tiempo).</p>
+                    <h3>Se ordena solo</h3>
+                    <p>Tu voz se convierte en series, repeticiones y peso, ya colocados en tu día.</p>
                 </div>
                 <div class="step fade-in">
                     <div class="step-number">3</div>
-                    <h3>Sigue Entrenando</h3>
-                    <p>Cero fricción. Los datos se guardan y tú puedes seguir inmediatamente con tu próxima serie.</p>
+                    <h3>Sigue a lo tuyo</h3>
+                    <p>Se guarda al momento y tú sigues con la siguiente serie. Cero fricción.</p>
                 </div>
             </div>
         </div>
@@ -118,27 +144,29 @@
         <div class="container footer-container">
             <div class="footer-brand">
                 <div class="logo-link">
-                    <img src="assets/images/logo.png" alt="GymSpeak Logo" class="logo-img">
+                    <img src="assets/images/logo.png" alt="Logo de GymSpeak" class="logo-img">
                     <span class="logo-text">GymSpeak</span>
                 </div>
-                <p>El diario de entrenamiento impulsado por IA que estabas esperando.</p>
+                <p>Hecha por un desarrollador independiente para apuntar el gym sin liarte: hablas y queda guardado.</p>
             </div>
             <div class="footer-links">
                 <div class="link-group">
-                    <h4>Compañía</h4>
-                    <a href="#">Sobre Nosotros</a>
-                    <a href="#">Contacto</a>
+                    <h4>Explora</h4>
+                    <a href="#features">Qué hace</a>
+                    <a href="#screenshots">Capturas</a>
+                    <a href="#how-it-works">Cómo funciona</a>
                 </div>
                 <div class="link-group">
-                    <h4>Legal</h4>
+                    <h4>Legal y contacto</h4>
                     <a href="privacidad.html">Privacidad</a>
-                    <a href="terminos.html">Términos de Servicio</a>
+                    <a href="terminos.html">Términos de servicio</a>
+                    <a href="mailto:gymspeaksl@gmail.com">Escríbeme</a>
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="footer-bottom">
-                <p>&copy; 2026 GymSpeak. Todos los derechos reservados.</p>
+                <p>&copy; 2026 GymSpeak · Hecho en España</p>
             </div>
         </div>
     </footer>
