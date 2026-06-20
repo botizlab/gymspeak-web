@@ -104,18 +104,13 @@
                 <h2>Así se <span class="highlight">ve</span></h2>
                 <p>Capturas reales de la app.</p>
             </div>
-            <div class="screens-marquee">
-                <div class="screens-track">
+            <div class="screens-viewport" id="screensViewport">
+                <div class="screens-row">
                     <img src="assets/images/cap-grabar.jpeg" alt="Pantalla de registro por voz de GymSpeak">
                     <img src="assets/images/cap-rutinas.jpeg" alt="Pantalla de rutinas de GymSpeak">
                     <img src="assets/images/cap-historial.jpeg" alt="Pantalla de historial de GymSpeak">
                     <img src="assets/images/cap-amigos.jpeg" alt="Pantalla de amigos y clasificación de GymSpeak">
                     <img src="assets/images/cap-perfil.jpeg" alt="Pantalla de perfil de GymSpeak">
-                    <img src="assets/images/cap-grabar.jpeg" alt="" aria-hidden="true">
-                    <img src="assets/images/cap-rutinas.jpeg" alt="" aria-hidden="true">
-                    <img src="assets/images/cap-historial.jpeg" alt="" aria-hidden="true">
-                    <img src="assets/images/cap-amigos.jpeg" alt="" aria-hidden="true">
-                    <img src="assets/images/cap-perfil.jpeg" alt="" aria-hidden="true">
                 </div>
             </div>
         </div>
@@ -180,5 +175,25 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script>
+      (function () {
+        var vp = document.getElementById('screensViewport');
+        if (!vp) return;
+        var down = false, startX = 0, startScroll = 0;
+        vp.addEventListener('pointerdown', function (e) {
+          if (e.pointerType !== 'mouse') return; // táctil usa scroll nativo
+          down = true; startX = e.clientX; startScroll = vp.scrollLeft;
+          vp.classList.add('dragging');
+          try { vp.setPointerCapture(e.pointerId); } catch (_) {}
+        });
+        vp.addEventListener('pointermove', function (e) {
+          if (!down) return;
+          vp.scrollLeft = startScroll - (e.clientX - startX);
+        });
+        function end() { down = false; vp.classList.remove('dragging'); }
+        vp.addEventListener('pointerup', end);
+        vp.addEventListener('pointercancel', end);
+      })();
+    </script>
 </body>
 </html>
