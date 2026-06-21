@@ -424,6 +424,27 @@ body::after {
     .wheel-track img { width: 180px; margin-right: 16px; }
 }
 
+/* ================= Rangos ================= */
+.ranks {
+    padding: 50px 0 20px;
+}
+
+.ranks-wrap {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.ranks-wrap::-webkit-scrollbar { display: none; }
+
+.ranks-wrap svg {
+    display: block;
+    width: 100%;
+    min-width: 680px;
+    max-width: 940px;
+    margin: 0 auto;
+}
+
 /* ================= Footer ================= */
 .footer {
     padding: 80px 0 40px;
