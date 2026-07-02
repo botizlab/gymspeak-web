@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuenta confirmada — GymSpeak</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .reset-wrap { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; }
+    .reset-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; text-decoration: none; color: var(--text-main); }
+    .reset-logo img { height: 40px; width: auto; }
+    .reset-logo span { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; }
+    .reset-card {
+      width: 100%; max-width: 440px; text-align: center;
+      background: var(--bg-card);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+      border-radius: 20px; padding: 40px 28px;
+    }
+    .check-circle {
+      width: 84px; height: 84px; margin: 0 auto 22px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 44px;
+      background: rgba(57, 255, 20, 0.1); border: 1px solid rgba(57, 255, 20, 0.35);
+      box-shadow: 0 0 30px rgba(57, 255, 20, 0.25);
+    }
+    .reset-card h1 { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.5px; }
+    .reset-card h1 .hl {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .reset-card .sub { color: var(--text-muted); margin-top: 12px; line-height: 1.6; }
+    .btn-primary { display: inline-block; margin-top: 26px; border: none; font-size: 16px; font-family: var(--font-family); text-decoration: none; }
+    .hidden { display: none; }
+    .err-icon { background: rgba(255, 80, 80, 0.1); border-color: rgba(255, 80, 80, 0.35); box-shadow: 0 0 30px rgba(255, 80, 80, 0.2); }
+    @media (max-width: 480px) { .reset-card { padding: 32px 22px; } }
+  </style>
+</head>
+<body>
+  <div class="reset-wrap">
+    <a href="/gymspeak-web/" class="reset-logo">
+      <img src="assets/images/logo.png" alt="GymSpeak Logo">
+      <span>GymSpeak</span>
+    </a>
+
+    <!-- Éxito (por defecto) -->
+    <div id="ok" class="reset-card">
+      <div class="check-circle">✅</div>
+      <h1>¡Cuenta <span class="hl">confirmada</span>!</h1>
+      <p class="sub">Tu cuenta de GymSpeak ya está lista.<br>Vuelve a la app e inicia sesión para empezar a entrenar.</p>
+      <a href="gymspeak://" class="btn-primary">Abrir GymSpeak</a>
+    </div>
+
+    <!-- Error (enlace caducado / inválido) -->
+    <div id="err" class="reset-card hidden">
+      <div class="check-circle err-icon">⚠️</div>
+      <h1>Enlace no válido</h1>
+      <p class="sub">Este enlace de confirmación no es válido o ya ha caducado. Abre la app GymSpeak e intenta iniciar sesión; si hace falta, pide un nuevo correo de confirmación.</p>
+      <a href="gymspeak://" class="btn-primary">Abrir GymSpeak</a>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      // Supabase redirige aquí tras verificar. En caso de fallo añade
+      // ?error=...&error_description=... (o en el fragmento #). Si detectamos
+      // error, mostramos el estado de enlace inválido; si no, "confirmada".
+      var hash = window.location.hash.charAt(0) === '#' ? window.location.hash.slice(1) : window.location.hash;
+      var p = new URLSearchParams(hash);
+      var q = new URLSearchParams(window.location.search);
+      var err = p.get('error') || p.get('error_description') || q.get('error') || q.get('error_description');
+      if (err) {
+        document.getElementById('ok').classList.add('hidden');
+        document.getElementById('err').classList.remove('hidden');
+      }
+      // Limpiar la barra de direcciones (quitar tokens/errores del historial).
+      try { history.replaceState(null, '', window.location.pathname); } catch (e) {}
+    })();
+  </script>
+</body>
+</html>
