@@ -30,6 +30,7 @@
                 <span class="logo-text">GymSpeak</span>
             </a>
             <ul class="nav-links">
+                <li><a href="#entrenador">Tu entrenador</a></li>
                 <li><a href="#features">Qué hace</a></li>
                 <li><a href="#screenshots">Capturas</a></li>
                 <li><a href="#how-it-works">Cómo funciona</a></li>
@@ -57,6 +58,45 @@
             </div>
         </div>
     </header>
+
+    <!-- Tu entrenador: el personaje de la app -->
+    <section id="entrenador" class="coach-sec">
+        <div class="container coach-wrap">
+            <div class="coach-stage fade-in">
+                <!-- Muñequito animado: hace sentadillas y saluda, todo en CSS -->
+                <svg class="coach-svg" viewBox="0 0 100 140" role="img" aria-label="El entrenador de GymSpeak haciendo sentadillas">
+                    <!-- suelo -->
+                    <line x1="12" y1="128" x2="88" y2="128" class="c-floor"/>
+                    <g class="c-body">
+                        <!-- barra sobre los hombros -->
+                        <line x1="20" y1="43" x2="80" y2="43" class="c-bar"/>
+                        <circle cx="20" cy="43" r="6" class="c-plate"/>
+                        <circle cx="80" cy="43" r="6" class="c-plate"/>
+                        <!-- cabeza y torso -->
+                        <circle cx="50" cy="32" r="9" class="c-fill"/>
+                        <line x1="50" y1="41" x2="50" y2="80" class="c-limb"/>
+                        <!-- brazos a la barra -->
+                        <line x1="42" y1="48" x2="30" y2="44" class="c-arm"/>
+                        <line x1="58" y1="48" x2="70" y2="44" class="c-arm"/>
+                        <!-- piernas -->
+                        <g class="c-legs">
+                            <line x1="50" y1="80" x2="38" y2="104" class="c-limb"/>
+                            <line x1="38" y1="104" x2="38" y2="126" class="c-limb"/>
+                            <line x1="50" y1="80" x2="62" y2="104" class="c-limb"/>
+                            <line x1="62" y1="104" x2="62" y2="126" class="c-limb"/>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            <div class="coach-text fade-in">
+                <div class="badge">Tu entrenador</div>
+                <h2>No te suelta un <span class="highlight">informe</span>. Te lo cuenta.</h2>
+                <p class="coach-quote">«Esta semana has movido más peso en banca que la anterior, bien ahí. Lo que se te está quedando atrás es la pierna: mete sentadilla 4x8 el jueves y no te me escaquees.»</p>
+                <p class="coach-body">Le pones el nombre que quieras y se queda contigo. Mira lo que entrenas y te lo explica en cristiano — sin porcentajes raros ni palabras que no significan nada. Te dice qué ejercicio hacer, con cuántas series y cuánto peso.</p>
+                <a href="https://play.google.com/store/apps/details?id=com.gymspeak.app" class="btn-primary">Conócelo en la app</a>
+            </div>
+        </div>
+    </section>
 
     <!-- Features Section -->
     <section id="features" class="features">
