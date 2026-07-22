@@ -35,6 +35,7 @@
                 <li><a href="#screenshots">Capturas</a></li>
                 <li><a href="#how-it-works">Cómo funciona</a></li>
                 <li><a href="#rangos">Rangos</a></li>
+                <li><button class="replay-tour" id="replayTour" type="button">Ver el recorrido</button></li>
                 <li><a href="https://play.google.com/store/apps/details?id=com.gymspeak.app" class="btn-outline">Descargar</a></li>
             </ul>
         </div>
@@ -331,12 +332,13 @@
         </div>
     </footer>
 
-    <!-- Acompañante: el entrenador te va guiando según bajas por la página -->
-    <aside class="guide" id="guide" hidden aria-live="polite">
-        <button class="guide-close" id="guideClose" type="button" aria-label="Cerrar al entrenador">&times;</button>
-        <div class="guide-bubble" id="guideBubble"></div>
-        <a class="guide-cta" id="guideCta" href="https://play.google.com/store/apps/details?id=com.gymspeak.app" hidden>Descargar gratis</a>
-        <svg class="guide-fig" id="guideFig" viewBox="0 0 60 92" aria-hidden="true">
+    <!-- ── Recorrido guiado: el entrenador conduce la página ──
+         Tres capas independientes para que la sección de la que habla
+         quede ILUMINADA por encima del oscurecido, y el diálogo por
+         encima de todo. -->
+    <div class="tour-dim" id="tourDim" hidden></div>
+    <div class="tour-stage" id="tourStage" hidden>
+        <svg class="tour-fig" id="tourFig" viewBox="0 0 60 92" aria-hidden="true">
             <g class="g-all">
                 <circle class="g-head" cx="30" cy="12" r="8"/>
                 <line class="g-torso" x1="30" y1="20" x2="30" y2="52"/>
@@ -346,7 +348,19 @@
                 <g class="g-leg-r"><line x1="30" y1="52" x2="38" y2="80"/></g>
             </g>
         </svg>
-    </aside>
+
+        <div class="tour-box" role="dialog" aria-live="polite" aria-label="Tu entrenador te enseña la app">
+            <span class="tour-name" id="tourName">Tu entrenador</span>
+            <p class="tour-text" id="tourText"></p>
+            <div class="tour-foot">
+                <span class="tour-dots" id="tourDots"></span>
+                <a class="tour-cta" id="tourCta" href="https://play.google.com/store/apps/details?id=com.gymspeak.app" hidden>Descargar gratis</a>
+                <button class="tour-next" id="tourNext" type="button">Seguir</button>
+            </div>
+        </div>
+
+        <button class="tour-skip" id="tourSkip" type="button">Saltar el recorrido</button>
+    </div>
 
     <script src="js/main.js"></script>
     <script>
