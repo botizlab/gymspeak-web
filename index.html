@@ -316,6 +316,23 @@
         </div>
     </footer>
 
+    <!-- Acompañante: el entrenador te va guiando según bajas por la página -->
+    <aside class="guide" id="guide" hidden aria-live="polite">
+        <button class="guide-close" id="guideClose" type="button" aria-label="Cerrar al entrenador">&times;</button>
+        <div class="guide-bubble" id="guideBubble"></div>
+        <a class="guide-cta" id="guideCta" href="https://play.google.com/store/apps/details?id=com.gymspeak.app" hidden>Descargar gratis</a>
+        <svg class="guide-fig" id="guideFig" viewBox="0 0 60 92" aria-hidden="true">
+            <g class="g-all">
+                <circle class="g-head" cx="30" cy="12" r="8"/>
+                <line class="g-torso" x1="30" y1="20" x2="30" y2="52"/>
+                <g class="g-arm-l"><line x1="30" y1="27" x2="18" y2="44"/></g>
+                <g class="g-arm-r"><line x1="30" y1="27" x2="42" y2="44"/></g>
+                <g class="g-leg-l"><line x1="30" y1="52" x2="22" y2="80"/></g>
+                <g class="g-leg-r"><line x1="30" y1="52" x2="38" y2="80"/></g>
+            </g>
+        </svg>
+    </aside>
+
     <script src="js/main.js"></script>
     <script>
       (function () {
